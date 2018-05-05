@@ -21,9 +21,9 @@ Have a look at the hints at the bottom of the screen, you can
 - disable the map, so you can look through the world ("M")
 - show the center of the World so you see, if the points on the other side line up ("L")
 - Change the information to visualize
- - Temperature (HSB, "T")
- - Air Pressure (HSB, "P") 
- - A mix of both, where the temperature is the red value and the pressure the green value of a RGB color ("B") 
+  - Temperature (HSB, "T")
+  - Air Pressure (HSB, "P") 
+  - A mix of both, where the temperature is the red value and the pressure the green value of a RGB color ("B") 
 
 
 Thanks to DarkSky for providing a source for the 18000 data points, which made this project possible.
