@@ -158,22 +158,15 @@ void findTemps() {
 
       TempPoint first = tempList.get(i).get(j);
 
-      int newLat = (90*res -i) + (90*res);
-
-      /*
-      i = 138
-       i - 90 = 48
-       * -1 = -48
-       
-       */
+      int newLat = (90*res - i) + (90*res);
 
       int lonPlusHalf = ((tempList.get(i).size()/2) + j)%tempList.get(i).size();
 
       TempPoint last = tempList.get(newLat).get(lonPlusHalf);
 
       if (abs(first.temperature - last.temperature) < 0.1) {
-        first.pointSize = 10;
-        last.pointSize = 10;
+        first.pointSize = 15;
+        last.pointSize = 15;
 
 
         if (abs(first.airpressure - last.airpressure) < 0.1) {
