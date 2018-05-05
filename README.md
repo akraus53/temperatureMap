@@ -15,7 +15,7 @@ but hey, it's something...
 - the slightly bigger points have the same temperature (difference less than 0.1°C) as the antipod.
 - [Spoiler] there's one pair of points in the Atlantic/Pacific, which is even bigger, here in addition to the temperature the air presure is almost the same, the difference is less than 0.1mBar
 
-## So, what can I do?
+## So, what can *you* do?
 Have a look at the hints at the bottom of the screen, you can
 - turn the globe (Arrow Keys)
 - stop the world from turning ("S")
