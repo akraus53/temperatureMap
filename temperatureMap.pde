@@ -32,11 +32,13 @@ void setup() {
   // Define the globe
   sphere = createShape(SPHERE, rad);
   sphere.setTexture(loadImage("Earth.jpg"));
+  
   sphere.setStroke(false);
   colorMode(HSB);
 
   // Define List of Lists for Antipod finding
   tempList  = new ArrayList<ArrayList<TempPoint>>();
+  
 
   for (int i = 0; i <= 180; i++) {
     tempList.add(new ArrayList<TempPoint>());
@@ -45,7 +47,7 @@ void setup() {
   // Load temperatures from JSON
   loadTemps("DarkSky3.json");
 
-  findTemps();
+  //findTemps();
 }
 
 void draw() {
@@ -55,10 +57,13 @@ void draw() {
   translate(width/2, height/2, -600);
   rotateX(radians(angleY));
   rotateY(radians(angleX));
-
+  
   // Draw each TempPoint
-  for (TempPoint t : temps) t.show();
-
+for(ArrayList<TempPoint> l : tempList){
+    for(TempPoint t : l){
+      t.show();
+    }
+  }
   // Draw the globe
   if (showEarth) shape(sphere);
 
@@ -153,7 +158,7 @@ void oppositeTest() {
 
 void findTemps() {
   //println(temps.length);
-  for (int  i = 0; i < tempList.size()/2; i++) {
+  for (int  i = 0; i <= tempList.size()/2; i++) {
     for (int j = 0; j < tempList.get(i).size(); j ++) {  
 
       TempPoint first = tempList.get(i).get(j);
@@ -164,7 +169,7 @@ void findTemps() {
 
       TempPoint last = tempList.get(newLat).get(lonPlusHalf);
 
-      if (abs(first.temperature - last.temperature) < 0.1) {
+      if (abs(first.temperature - last.temperature) < 0.3) {
         first.pointSize = 15;
         last.pointSize = 15;
 
@@ -172,7 +177,7 @@ void findTemps() {
         if (abs(first.airpressure - last.airpressure) < 0.1) {
           first.pointSize = 30;
           last.pointSize = 30;
-          println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ");
+          print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ");
         }
 
         println(first.lon, "\t", last.lon, "\t", first.lon-last.lon, "\t", first.lat, "\t", last.lat, "\t", first.temperature, "\t", first.airpressure);
