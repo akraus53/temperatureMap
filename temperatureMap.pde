@@ -55,7 +55,6 @@ void setup() {
 }
 
 void draw() {
-   
   background(51);
   pushMatrix();
   // Rotate view of whole globe
@@ -214,6 +213,7 @@ void findTemps() {
 
       first.pointSize = 5;
       last.pointSize = 5;
+
       if (abs(first.temperature - last.temperature) < tolerance) {
         first.pointSize = 8;
         last.pointSize = 8;
