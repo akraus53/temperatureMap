@@ -6,6 +6,9 @@ PShape sphere;
 float angleX = -30;
 float angleY = 0;
 
+float speedX = 0;
+float speedY = 0;
+
 // Radius of the earth
 int rad = 600;
 boolean showEarth = true;
@@ -81,6 +84,11 @@ for(ArrayList<TempPoint> l : tempList){
     line(0, height/2, width, height/2); 
     line(width/2, 0, width/2, height);
   }
+
+  angleX += speedX;
+  angleY += speedY;
+  speedX *= 0.97;
+  speedY *= 0.97;
 }
 
 
@@ -116,8 +124,8 @@ void keyPressed() {
 
 void mouseDragged() {
   float yrot = (mouseY - pmouseY);
-  if (abs(yrot) < 300) {
-    angleY -= yrot * 0.05;
+  if (abs(yrot) < 50) {
+    speedY = yrot * 0.05 * -1;
   }
 
   boolean onOtherSide = abs((angleY -90) %360) > 180 && abs((angleY -90) %360) < 360;
@@ -126,7 +134,7 @@ void mouseDragged() {
   float xrot = (mouseX - pmouseX);
   //  println(angleX, angleY);
   if (abs(xrot) < 50) {
-    angleX += xrot * 0.08 * f;
+    speedX = xrot * 0.05 * f;
   }
 }
 
