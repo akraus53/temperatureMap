@@ -17,6 +17,8 @@ final int PRESSURE = 1;
 final int BOTH = 2;
 int drawMode = TEMPERATURE;
 
+float tolerance = 0.15;
+
 
 // Array of temperature points
 TempPoint [] temps;
@@ -69,7 +71,9 @@ for(ArrayList<TempPoint> l : tempList){
 
   popMatrix();
   textSize(width/100);
-  text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure | L - Lines | Turn Globe with Mouse | A - Show/Hide irrelevant", 20, height -20);
+  text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure |" + 
+    "L - Lines | Turn Globe with Mouse | A - Not Equal Points | J/K change Tolerance", 
+    20, height -20);
 
   if (showLines) {
     stroke(255);
@@ -81,15 +85,33 @@ for(ArrayList<TempPoint> l : tempList){
 
 
 void keyPressed() {
-  if (keyCode == 77) showEarth = !showEarth; //m
-  
-  if (keyCode == 76) showLines = !showLines; //l
-  
-  if (keyCode == 84) drawMode = TEMPERATURE;
-  if (keyCode == 80) drawMode = PRESSURE;
-  if (keyCode == 66) drawMode = BOTH;
-  if (keyCode == 65) showAll = !showAll;
-
+  switch(keyCode) {
+  case 77: //m
+    showEarth = !showEarth; 
+    break;
+  case 76: // l
+    showLines = !showLines;
+    break;
+  case 84: 
+    drawMode = TEMPERATURE;
+    break;
+  case 80:
+    drawMode = PRESSURE;
+    break;
+  case 66: 
+    drawMode = BOTH;
+    break;
+  case 65: 
+    showAll = !showAll;
+    break;
+  case 74: 
+    if (tolerance > 0) tolerance -= 0.02; 
+    findTemps();
+    break;
+  case 75: 
+    tolerance += 0.02;
+    findTemps();
+  }
 }
 
 void mouseDragged() {
@@ -179,7 +201,9 @@ void findTemps() {
 
       TempPoint last = tempList.get(newLat).get(lonPlusHalf);
 
-      if (abs(first.temperature - last.temperature) < 0.15) {
+      first.pointSize = 5;
+      last.pointSize = 5;
+      if (abs(first.temperature - last.temperature) < tolerance) {
         first.pointSize = 8;
         last.pointSize = 8;
 
