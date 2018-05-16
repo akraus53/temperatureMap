@@ -6,9 +6,6 @@ PShape sphere;
 float angleX = -30;
 float angleY = 0;
 
-float changeX = 0;
-float changeY = 0;
-
 // Radius of the earth
 int rad = 600;
 boolean showEarth = true;
@@ -72,7 +69,7 @@ for(ArrayList<TempPoint> l : tempList){
 
   popMatrix();
   textSize(width/100);
-  text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure | L - Lines | Arrow Keys - Turn Globe | A - Show/Hide irrelevant | S - Stop turning", 20, height -20);
+  text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure | L - Lines | Turn Globe with Mouse | A - Show/Hide irrelevant", 20, height -20);
 
   if (showLines) {
     stroke(255);
@@ -80,21 +77,12 @@ for(ArrayList<TempPoint> l : tempList){
     line(0, height/2, width, height/2); 
     line(width/2, 0, width/2, height);
   }
-  angleY += changeY;
-  angleX += changeX;
 }
 
 
 void keyPressed() {
-  if (keyCode == LEFT) changeX -= 0.2;  
-  if (keyCode == RIGHT) changeX += 0.2;  
-  if (keyCode == UP) changeY -= 0.2;  
-  if (keyCode == DOWN) changeY += 0.2;
   if (keyCode == 77) showEarth = !showEarth; //m
-  if (keyCode == 83) {
-    changeX = 0; 
-    changeY = 0;
-  } //s
+  
   if (keyCode == 76) showLines = !showLines; //l
   
   if (keyCode == 84) drawMode = TEMPERATURE;
@@ -103,6 +91,23 @@ void keyPressed() {
   if (keyCode == 65) showAll = !showAll;
 
 }
+
+void mouseDragged() {
+  float yrot = (mouseY - pmouseY);
+  if (abs(yrot) < 300) {
+    angleY -= yrot * 0.05;
+  }
+
+  boolean onOtherSide = abs((angleY -90) %360) > 180 && abs((angleY -90) %360) < 360;
+  int f = onOtherSide? -1 : 1;
+
+  float xrot = (mouseX - pmouseX);
+  //  println(angleX, angleY);
+  if (abs(xrot) < 50) {
+    angleX += xrot * 0.08 * f;
+  }
+}
+
 
 // Load temperature data from specific JSON file
 void loadTemps(String file) {
