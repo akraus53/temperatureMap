@@ -27,6 +27,7 @@ class TempPoint {
 
 
   void show() {
+    if(showAll || this.pointSize != 5){
     pushMatrix();
     rotateY(radians(this.lon));
     rotateZ(radians(this.lat));
@@ -48,5 +49,6 @@ class TempPoint {
     }
     point(0, 0);
     popMatrix();
+    }
   }
 }

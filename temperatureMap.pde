@@ -72,7 +72,7 @@ for(ArrayList<TempPoint> l : tempList){
 
   popMatrix();
   textSize(width/100);
-  text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure | L - Lines | Arrow Keys - Turn Globe | S - Stop turning", 20, height -20);
+  text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure | L - Lines | Arrow Keys - Turn Globe | A - Show/Hide irrelevant | S - Stop turning", 20, height -20);
 
   if (showLines) {
     stroke(255);
@@ -100,6 +100,8 @@ void keyPressed() {
   if (keyCode == 84) drawMode = TEMPERATURE;
   if (keyCode == 80) drawMode = PRESSURE;
   if (keyCode == 66) drawMode = BOTH;
+  if (keyCode == 65) showAll = !showAll;
+
 }
 
 // Load temperature data from specific JSON file
