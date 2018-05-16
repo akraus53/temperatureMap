@@ -198,6 +198,9 @@ void oppositeTest() {
 
 void findTemps() {
   //println(temps.length);
+  int numSame = 0;
+  int numSimilar = 0;
+
   for (int  i = 0; i <= tempList.size()/2; i++) {
     for (int j = 0; j < tempList.get(i).size(); j ++) {  
 
@@ -214,17 +217,16 @@ void findTemps() {
       if (abs(first.temperature - last.temperature) < tolerance) {
         first.pointSize = 8;
         last.pointSize = 8;
-
+        numSimilar++;
 
         if (abs(first.airpressure - last.airpressure) < 0.1) {
           first.pointSize = 15;
           last.pointSize = 15;
-          print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ");
+          numSame++;
         }
-
-        println(first.lon, "\t", last.lon, "\t", first.lon-last.lon, "\t", first.lat, "\t", last.lat, "\t", first.temperature, "\t", first.airpressure);
+        //println(first.lon, "\t", last.lon, "\t", first.lon-last.lon, "\t", first.lat, "\t", last.lat, "\t", first.temperature, "\t", first.airpressure);
       }
-      //println(i,j);
     }
   }
+  text(numSame + "/" + numSimilar + "@" + nf(tolerance, 1,2).replace(",","."), width-180, height-20);
 }
