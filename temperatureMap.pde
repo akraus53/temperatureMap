@@ -13,6 +13,7 @@ float changeY = 0;
 int rad = 600;
 boolean showEarth = true;
 boolean showLines = false;
+boolean showAll = false;
 
 final int TEMPERATURE = 0;
 final int PRESSURE = 1;
@@ -22,8 +23,9 @@ int drawMode = TEMPERATURE;
 
 // Array of temperature points
 TempPoint [] temps;
+
 ArrayList<ArrayList<TempPoint>> tempList;
-int res = 1;
+int res = 2;
 
 void setup() {
   fullScreen(P3D);
@@ -40,17 +42,18 @@ void setup() {
   tempList  = new ArrayList<ArrayList<TempPoint>>();
   
 
-  for (int i = 0; i <= 180; i++) {
+  for (int i = 0; i <= 180*res; i++) {
     tempList.add(new ArrayList<TempPoint>());
   }
 
   // Load temperatures from JSON
-  loadTemps("DarkSky3.json");
+  loadTemps("DarkSky4.json");
 
-  //findTemps();
+  findTemps();
 }
 
 void draw() {
+   
   background(51);
   pushMatrix();
   // Rotate view of whole globe
@@ -126,7 +129,7 @@ void loadTemps() {
   JSONArray tmps = loadJSONArray("weather.json");
   temps = new TempPoint[tmps.size()];
 
-  for (int i = 0; i < tmps.size(); i++) {
+  for (int i = 0; i <= tmps.size(); i++) {
     JSONObject obj = tmps.getJSONObject(i);
     //print(".");
     float lat = obj.getJSONObject("city").getJSONObject("coord").getFloat("lat");
@@ -169,14 +172,14 @@ void findTemps() {
 
       TempPoint last = tempList.get(newLat).get(lonPlusHalf);
 
-      if (abs(first.temperature - last.temperature) < 0.3) {
-        first.pointSize = 15;
-        last.pointSize = 15;
+      if (abs(first.temperature - last.temperature) < 0.15) {
+        first.pointSize = 8;
+        last.pointSize = 8;
 
 
         if (abs(first.airpressure - last.airpressure) < 0.1) {
-          first.pointSize = 30;
-          last.pointSize = 30;
+          first.pointSize = 15;
+          last.pointSize = 15;
           print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ");
         }
 

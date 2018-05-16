@@ -8,7 +8,7 @@ class TempPoint {
   float colT_HSB;
   float colP_RGB;
   float colT_RGB;
-  float pointSize = 6;
+  float pointSize = 5;
 
   TempPoint(float lon, float lat, float tmp, float prs) {
     this.temperature = tmp;
