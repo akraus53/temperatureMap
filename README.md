@@ -9,7 +9,7 @@ where the temperature and the air pressure is the same as on the opposite site o
 Have a look at [this](http://junq.info/?p=3126) for the whole explanation, why this point has to exist. I consider the explanation a mathematical proof and I completely believe it. 
 
 In several discussions with friends that followed, I noticed I needed some way of showing what was going on and of course I wanted to find out where the mysterious point was (yeah, it moves, I know) - *so i decided I had to make a viualisation*, and I did. Here it is. Of course this is no proof, that there always has to be such a point, 
-but hey, it's something. I am not planning on making a live version of this, because a complete set of points takes about an hour to fetch from the API and costs 1.80$. ~~In the near future I will increase the number of points from 18k to, say, 50k.~~ I have since increased the database to 100.000 points.
+but hey, it's something. I am not planning on making a live version of this, because it's impossible to get the points fast enough and running it for an hour costs about 1.50$. ~~In the near future I will increase the number of points from 18k to, say, 50k.~~ I have since increased the database to 100.000 points, this only took 8 hours.
 
 ## Explanation of the Visualisation
 - Every point on the globe represents a API call at Tuesday night (May 15 2018) for the current temperature and air pressure at those coordinates
