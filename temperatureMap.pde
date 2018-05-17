@@ -63,8 +63,8 @@ void draw() {
   rotateY(radians(angleX));
   
   // Draw each TempPoint
-for(ArrayList<TempPoint> l : tempList){
-    for(TempPoint t : l){
+  for (ArrayList<TempPoint> l : tempList) {
+    for (TempPoint t : l) {
       t.show();
     }
   }
@@ -88,6 +88,11 @@ for(ArrayList<TempPoint> l : tempList){
   angleY += speedY;
   speedX *= 0.97;
   speedY *= 0.97;
+  angleX = angleX % 360;
+  angleY = angleY % 360;
+
+  if (angleX < 0) angleX = 360 - angleX;
+  if (angleY < 0) angleY = 360 - angleY;
 }
 
 
@@ -128,7 +133,9 @@ void mouseDragged() {
   }
 
   boolean onOtherSide = abs((angleY -90) %360) > 180 && abs((angleY -90) %360) < 360;
-  int f = onOtherSide? -1 : 1;
+  int f = onOtherSide? 1 : -1;
+
+  f *= (angleY -90) < 0? -1:1;
 
   float xrot = (mouseX - pmouseX);
   //  println(angleX, angleY);
