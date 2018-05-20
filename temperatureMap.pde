@@ -86,8 +86,8 @@ void draw() {
 
   angleX += speedX;
   angleY += speedY;
-  speedX *= 0.97;
-  speedY *= 0.97;
+  speedX *= 0.9;
+  speedY *= 0.9;
   angleX = angleX % 360;
   angleY = angleY % 360;
 
@@ -129,7 +129,7 @@ void keyPressed() {
 void mouseDragged() {
   float yrot = (mouseY - pmouseY);
   if (abs(yrot) < 50) {
-    speedY = yrot * 0.05 * -1;
+    speedY = yrot * 0.16 * -1;
   }
 
   boolean onOtherSide = abs((angleY -90) %360) > 180 && abs((angleY -90) %360) < 360;
@@ -140,7 +140,7 @@ void mouseDragged() {
   float xrot = (mouseX - pmouseX);
   //  println(angleX, angleY);
   if (abs(xrot) < 50) {
-    speedX = xrot * 0.05 * f;
+    speedX = xrot * 0.16 * f;
   }
 }
 
