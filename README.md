@@ -17,7 +17,7 @@ but hey, it's something. I am not planning on making a live version of this, bec
 - the color of the point represents the value, so the temperature (blue = cold, red = hot, or so extremely cold that HSB makes it red again), or if you switch the mode with the "P"-Button, the Presure (red = high, blue = low)
 - very big spots have almost hte same temperature and air pressure as the antipod.
 
-![image of earth](https://github.com/akraus53/temperatureMap/blob/master/gallery/earth5.PNG)
+![image of earth](/gallery/earth5.PNG)
 
 ## So, what can *you* do?
 Have a look at the hints at the bottom of the screen, you can
@@ -45,5 +45,3 @@ If you're interested in the script I used to do the API calls, let me know.
 
 
 ![image of earth](/gallery/earth6.PNG "Temperature swirls near the south pole")
-
-
