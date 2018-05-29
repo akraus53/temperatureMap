@@ -3,10 +3,10 @@
 PShape sphere;
 
 // Viewing angles
-float angleX = -30;
-float angleY = 0;
+float angleX = 0;
+float angleY = 320;
 
-float speedX = 0;
+float speedX = random(5,10);
 float speedY = 0;
 
 // Radius of the earth
@@ -62,17 +62,28 @@ void draw() {
   rotateX(radians(angleY));
   rotateY(radians(angleX));
   
+  // Draw the globe
+  if (showEarth) shape(sphere);
+
   // Draw each TempPoint
   for (ArrayList<TempPoint> l : tempList) {
     for (TempPoint t : l) {
       t.show();
     }
   }
-  // Draw the globe
-  if (showEarth) shape(sphere);
+
+  //if (angleX != 359) {
+  //  saveFrame("frames/frame-######.tif");
+  //  println("printed!!!");
+  //} else {
+  //  println("DONE");
+  //  noLoop();
+  //}
+
 
   popMatrix();
   textSize(width/100);
+  fill(230);
   text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure |" + 
     "L - Lines | Turn Globe with Mouse | A - Not Equal Points | J/K change Tolerance", 
     20, height -20);
@@ -218,12 +229,12 @@ void findTemps() {
 
       TempPoint last = tempList.get(newLat).get(lonPlusHalf);
 
-      first.pointSize = 5;
-      last.pointSize = 5;
+      first.pointSize = 4;
+      last.pointSize = 4;
 
       if (abs(first.temperature - last.temperature) < tolerance) {
-        first.pointSize = 8;
-        last.pointSize = 8;
+        first.pointSize = 10;
+        last.pointSize = 10;
         numSimilar++;
 
         if (abs(first.airpressure - last.airpressure) < 0.1) {

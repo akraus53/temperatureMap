@@ -8,7 +8,7 @@ class TempPoint {
   float colT_HSB;
   float colP_RGB;
   float colT_RGB;
-  float pointSize = 5;
+  float pointSize = 4;
 
   TempPoint(float lon, float lat, float tmp, float prs) {
     this.temperature = tmp;
@@ -27,28 +27,30 @@ class TempPoint {
 
 
   void show() {
-    if(showAll || this.pointSize != 5){
-    pushMatrix();
-    rotateY(radians(this.lon));
-    rotateZ(radians(this.lat));
-    translate(-rad, 0);
-    strokeWeight(this.pointSize);
+    if (showAll || this.pointSize != 4) {
+      pushMatrix();
+      rotateY(radians(this.lon));
+      rotateZ(radians(this.lat));
+      translate(-rad, 0);
+      noStroke();
+      switch(drawMode) {
+      case TEMPERATURE: 
+        colorMode(HSB);
+        fill(this.colT_HSB, 255, 255);
+        break;
+      case PRESSURE: 
+        colorMode(HSB);
+        fill(this.colP_HSB, 255, 255);
+        break;
+      case BOTH:
+        colorMode(RGB);
+        fill(this.colT_RGB, this.colP_RGB, 128);
+      }
 
-    switch(drawMode) {
-    case TEMPERATURE: 
-      colorMode(HSB);
-      stroke(this.colT_HSB, 255, 255);
-      break;
-    case PRESSURE: 
-      colorMode(HSB);
-      stroke(this.colP_HSB, 255, 255);
-      break;
-    case BOTH:
-      colorMode(RGB);
-      stroke(this.colT_RGB, this.colP_RGB, 128);
-    }
-    point(0, 0);
-    popMatrix();
+      rotateY(radians(90));
+
+      ellipse(0, 0, this.pointSize, this.pointSize);
+      popMatrix();
     }
   }
 }
