@@ -6,7 +6,7 @@ PShape sphere;
 float angleX = 0;
 float angleY = 320;
 
-float speedX = random(5,10);
+float speedX = random(5, 50);
 float speedY = 0;
 
 // Radius of the earth
@@ -36,13 +36,13 @@ void setup() {
   // Define the globe
   sphere = createShape(SPHERE, rad);
   sphere.setTexture(loadImage("Earth.jpg"));
-  
+
   sphere.setStroke(false);
   colorMode(HSB);
 
   // Define List of Lists for Antipod finding
   tempList  = new ArrayList<ArrayList<TempPoint>>();
-  
+
 
   for (int i = 0; i <= 180*res; i++) {
     tempList.add(new ArrayList<TempPoint>());
@@ -61,7 +61,7 @@ void draw() {
   translate(width/2, height/2, -600);
   rotateX(radians(angleY));
   rotateY(radians(angleX));
-  
+
   // Draw the globe
   if (showEarth) shape(sphere);
 
@@ -85,7 +85,7 @@ void draw() {
   textSize(width/100);
   fill(230);
   text("M - Map | T - Temperature | P - Pressure | B - Temperature & Pressure |" + 
-    "L - Lines | Turn Globe with Mouse | A - Not Equal Points | J/K change Tolerance", 
+    "L - Lines | Turn Globe with Mouse | A - Show dissimilar Points | J/K change Tolerance", 
     20, height -20);
 
   if (showLines) {
@@ -128,11 +128,11 @@ void keyPressed() {
     showAll = !showAll;
     break;
   case 74: 
-    if (tolerance > 0) tolerance -= 0.02; 
+    if (tolerance > 0) tolerance -= 0.01; 
     findTemps();
     break;
   case 75: 
-    tolerance += 0.02;
+    tolerance += 0.01;
     findTemps();
   }
 }
@@ -229,22 +229,22 @@ void findTemps() {
 
       TempPoint last = tempList.get(newLat).get(lonPlusHalf);
 
-      first.pointSize = 4;
-      last.pointSize = 4;
+      first.state = TempPoint.DEF;
+      last.state = TempPoint.DEF;
 
       if (abs(first.temperature - last.temperature) < tolerance) {
-        first.pointSize = 10;
-        last.pointSize = 10;
+        first.state = TempPoint.PRI;
+        last.state = TempPoint.PRI;
         numSimilar++;
 
         if (abs(first.airpressure - last.airpressure) < 0.1) {
-          first.pointSize = 15;
-          last.pointSize = 15;
+          first.state = TempPoint.BTH;
+          last.state = TempPoint.BTH;
           numSame++;
         }
         //println(first.lon, "\t", last.lon, "\t", first.lon-last.lon, "\t", first.lat, "\t", last.lat, "\t", first.temperature, "\t", first.airpressure);
       }
     }
   }
-  text(numSame + "/" + numSimilar + "@" + nf(tolerance, 1,2).replace(",","."), width-180, height-20);
+  text(numSame + "/" + numSimilar + "@" + nf(tolerance, 1, 2).replace(",", "."), width-180, height-20);
 }
