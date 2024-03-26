@@ -1,13 +1,14 @@
-
 // Globe
 PShape sphere;
 
 // Viewing angles
 float angleX = 0;
 float angleY = 320;
+float zoom = 1;
 
 float speedX = random(5, 50);
 float speedY = 0;
+float wheelCount = 0;
 
 // Radius of the earth
 int rad = 600;
@@ -61,6 +62,7 @@ void draw() {
   translate(width/2, height/2, -600);
   rotateX(radians(angleY));
   rotateY(radians(angleX));
+  scale(zoom);
 
   // Draw the globe
   if (showEarth) shape(sphere);
@@ -101,6 +103,9 @@ void draw() {
   speedY *= 0.9;
   angleX = angleX % 360;
   angleY = angleY % 360;
+
+  zoom = constrain(zoom + wheelCount*0.1*zoom, 0.01, 2.3);
+  wheelCount = 0.0;
 
   if (angleX < 0) angleX = 360 - angleX;
   if (angleY < 0) angleY = 360 - angleY;
@@ -155,6 +160,9 @@ void mouseDragged() {
   }
 }
 
+void mouseWheel(MouseEvent e){
+  wheelCount = e.getCount();
+}
 
 // Load temperature data from specific JSON file
 void loadTemps(String file) {
