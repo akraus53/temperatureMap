@@ -104,8 +104,9 @@ void draw() {
   angleX = angleX % 360;
   angleY = angleY % 360;
 
-  zoom = constrain(zoom + wheelCount*0.1*zoom, 0.01, 2.3);
+  zoom = constrain(zoom + wheelCount*0.1, 0.01, 2.3*(sqrt((float) width/1920)));
   wheelCount = 0.0;
+  println(zoom);
 
   if (angleX < 0) angleX = 360 - angleX;
   if (angleY < 0) angleY = 360 - angleY;
@@ -143,17 +144,17 @@ void keyPressed() {
 }
 
 void mouseDragged() {
-  float yrot = (mouseY - pmouseY);
+  float yrot = (mouseY - pmouseY)/(zoom*zoom);
   if (abs(yrot) < 50) {
     speedY = yrot * 0.16 * -1;
   }
 
-  boolean onOtherSide = abs((angleY -90) %360) > 180 && abs((angleY -90) %360) < 360;
+  boolean onOtherSide = abs((angleY -90) %360) > 180;
   int f = onOtherSide? 1 : -1;
 
   f *= (angleY -90) < 0? -1:1;
 
-  float xrot = (mouseX - pmouseX);
+  float xrot = (mouseX - pmouseX)/(zoom*zoom);
   //  println(angleX, angleY);
   if (abs(xrot) < 50) {
     speedX = xrot * 0.16 * f;
